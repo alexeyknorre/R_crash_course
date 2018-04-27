@@ -110,8 +110,8 @@ install.packages(c("readxl","dplyr","ggplot2", "openxlsx","scales"))
 # Данные института проблем правоприменения 
 # об арбитражных судебных решениях
 # 10893 закодированных решения с сайтов арбитражных судов. Случайная выборка из 5 млн. дел за 2007-2011 годы.
-commercial_courts_cases <- read.csv("https://github.com/alexeyknorre/Rbitrazh/raw/master/IRL_commcourts_decisions_cp1251.csv",
-                                    stringsAsFactors = FALSE)
+commercial_courts_cases <- read.csv2("data/IRL_commercial_courts_decisions_2009.csv",
+                                    encoding = "UTF-8", stringsAsFactors = FALSE)
 # Подробная презентация
 # http://htmlpreview.github.io/?https://github.com/alexeyknorre/Rbitrazh/blob/master/OpenDataDay_Rbitrazh_Knorre.html
 
