@@ -204,6 +204,16 @@ df %>%
   #
   write.csv2(.,"results/df_new_column.csv")
 
+# Немного анализа
+unique(df$site_no)
+# для подгрупп мест site_no рассчитать количество наблюдений и средний поток
+df_analisys <- df %>% 
+  group_by(site_no) %>% 
+  summarise(n = n(), median_flow = median(Flow_Inst, na.rm = T))
+
+# Задача: рассчитать среднюю температуру. В каком месте она больше, а в каком меньше всего?
+
+
 ### Пример с данными МинЗдрава РФ
 
 library(readxl)
@@ -221,4 +231,5 @@ deaths_clean <- deaths %>%
 write.csv2(deaths_clean, "results/deaths_clean_csv2.csv", row.names = T)
 write.xlsx(deaths_clean, "results/deaths_clean_xlsx.xlsx")
 ###
+
 
