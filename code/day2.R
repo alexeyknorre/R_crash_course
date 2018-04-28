@@ -48,13 +48,14 @@ head(df_high_temp)
 
 # 
 df_estimated <- df[df$Flow_Inst_cd == "E",]
-head(estimated_q)
+head(df_estimated$Flow_Inst_cd)
 
 # И то, и другое сразу
 # В чём разница между ними?
 df_both <- df[df$Wtemp_Inst > 15 & df$Flow_Inst_cd == "E",]
+nrow(df_both)
 df_both <- df[df$Wtemp_Inst > 15 | df$Flow_Inst_cd == "E",]
-
+nrow(df_both)
 ## Отбор данных с помощью dplyr
 # Подгружаем библиотеку
 library(dplyr)
@@ -82,7 +83,7 @@ head(dplyr_sel)
 # mutate: создание новых переменных из старых
 
 df_newcolumn <- mutate(df, DO_mgmL = DO_Inst/1000)
-head(intro_df_newcolumn)
+head(df_newcolumn)
 
 # arrange: сортировка по переменным
 # сортируем по росту кислотности
@@ -200,16 +201,17 @@ df %>%
   filter(flow_v == "Точное") %>%
   arrange(desc(water_temp)) %>% 
   #добавьте новую строчку сюда
-  mutate(???) %>% 
+  mutate(flow_m = flow / 3.28) %>% 
   #
-  write.csv2(.,"results/df_new_column.csv")
+  arrange(desc(flow_m)) %>% 
+  head()
 
 # Немного анализа
 unique(df$site_no)
 # для подгрупп мест site_no рассчитать количество наблюдений и средний поток
 df_analisys <- df %>% 
   group_by(site_no) %>% 
-  summarise(n = n(), median_flow = median(Flow_Inst, na.rm = T))
+  summarise(n = n(), median_temp = median(Wtemp_Inst, na.rm = T))
 
 # Задача: рассчитать среднюю температуру. В каком месте она больше, а в каком меньше всего?
 
